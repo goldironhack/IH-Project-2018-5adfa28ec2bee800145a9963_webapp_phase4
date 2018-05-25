@@ -1,15 +1,199 @@
 <!DOCTYPE html>
+
+<!--sweet alert Para alert bonitas-->
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <!--Se llama Jquery -->
+
+
+  <!--Se puede definir los tipos de estilos para cada pantalla especifica media="screen and (device-height: 600px)" -->
+  <!--llamado a bootstrap 4 version min -->
+
+  <link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+  <script  src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+  <!-- <script  src="https://d3js.org/d3.v3.min.js"></script> -->
+  <script  src="https://d3js.org/d3.v5.js"></script>
+  <script  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+
+  <link rel="StyleSheet" href="style.css"  >
+
+  <!-- Latest compiled and minified Locales -->
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-es-ES.js"></script>
+  <title>ASINY</title>
+  <style>
+
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Hello World!</h1>
-        <button id="btn">Click me</button>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="ModalDistance" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Sort by Distance</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          The distance parameter takes a time when you can calculate the distances from all the cities within a district of the community and then give an average distance to the city, the average for which the data is ordered.
+          The Load bar is on the right, this load should not take more than 30 seconds and it is only done once
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" data-target="#myModal" >ok</button>
+          <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        </div>
+      </div>
     </div>
-    <script src="index.js"></script>
+  </div>
+  <div class="modal fade" id="ModalWelcome" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Welcome to Asiny</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Select the filters in the central bar, then click on the bar below the district you want to analyze.
+          There are also tools in the same bar in the middle so you can make your decision you only need to select them or deselect them if you want to hide them.
+  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" data-target="#ModalWelcome" >ok</button>
+          <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Espacido en bootstrap offset-md-4 deja el espaciado en el container respecto a la grilla -->
+  <!--col-sm-6 Subdivicion NESTING dentro de un container de 12-->
+
+  <div id="map" class="container-fluid position-absolute "></div>
+  <!--Si se quita el overlay se acomoda para telefonos-->
+  <div class="container-fluid">
+    <div class="row justify-content-between">
+      <div class="col-3 panel">
+
+        <div class="col-md-12">
+          <div class="  margin-top-md">
+            <div class="container">
+              <h1>Asiny</h1>
+              <h3>Site In New York</h3>
+              <h6>A page to find the best district to live according to your preferences.</h6>
+            </div>
+            <h2 id="Status">Ranking</h2>
+            <div class="row">
+              <div class="container">
+                <div class="progress">
+                  <div class="progress-bar  progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    0% Loading
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <div class="container">
+                  <table id="table"
+                  data-classes="table table-no-bordered"
+                  data-height="460">
+                  <thead>
+                    <tr>
+                      <th data-formatter="runningFormatter">Position</th>
+                      <th data-field="borough">District</th>
+                      <th data-field="numberCD">CD N°</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- Example split danger button -->
+    <div class="">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded-bottom">
+        <a class="navbar-brand "><strong>Filters</strong></a>
+
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse margin-sm" id="navbarNavDropdown">
+          <br>
+          <br>
+          <div class="container">
+            <ul class="navbar-nav">
+              <button id="distance" type="button" class="btn-primary text-light p-md" onclick="calculateDistance()" >Distance</button>
+              <button id="price" type="button" class="btn-primary text-light" onclick="calculatePricing()" >Pricing</button>
+              <li class="" >
+              </li>
+              <li class="nav-item">
+              </li>
+              <!-- <li  class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li> -->
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Decision tools
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdownMenuLink">
+                  <button id="crimes" type="button" class="btn-outline-primary btn-block text-light  p-md" onclick="toggleHeatmap()" >Show Crimes</button>
+                  <!-- <a class="dropdown-item" href="#">walking</a>
+                  <a class="dropdown-item" href="#">public transport</a> -->
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </div>
+
+
+
+    <div class="col-3  panel">
+      <br>
+      <div class="container rounded margin-top">
+        <h2 id="nameBoro"></h2>
+        <h4 id="numberCD"></h4>
+        <svg class="container rounded" id="barChart" width="100%" height="200px"></svg>
+        <br>
+        <strong id="distanceAverage">Distance Variable</strong>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="index.js"></script>
+<!--Cargar la API de google maps de forma Asincrona*/-->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcVSzMvDoSRvr9RUUIjrLLJ1HjTrUBKcg&v=3&libraries=geometry,visualization&callback=initMap&language=en">
+</script>
+<!--Cargamos de ultimas el javascript para no interrumpir la carga de la pagina-->
+
 </body>
+
 </html>

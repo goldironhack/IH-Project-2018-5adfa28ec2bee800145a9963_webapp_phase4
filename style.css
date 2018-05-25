@@ -1,9 +1,117 @@
-body {
-    color: #444;
-    font-family: Arial, sans-serif;
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+/*Settings of  divs to show information*/
+.panel{
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7 ) , rgba(34, 37, 42,0.8) );
+    color: rgb(255, 255, 255);
+    border: solid;
+    border-color: black;
+    padding: 0;
+}
+.dropdown{
+  color: white;
+}
+.navbar{
+  color: white;
 }
 
-.container {
-    width: 100%;
-    max-width: 960px;
+
+tr:hover td {
+background-color: rgba(0, 0, 0,0.5);
+}
+
+.test div{
+  font-size:10px;
+  background-color:green;
+  text-align:right;
+  padding:3px;
+  margin:1px;
+  color:white;
+}
+.progress-bar{
+
+
+}
+.container.custom-container {
+      margin: 10px;
+}
+
+
+
+
+/*Style for barChart*/
+#barChart{
+  background: rgba(45, 48, 53,0.8);
+}
+.bar{
+  fill: rgb(93, 40, 136);
+}
+.svg-container {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%;
+	vertical-align: middle;
+	overflow: hidden;
+}
+.svg-content {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#barChart text{
+  fill : white;
+}
+.axis--x .tick line{
+  stroke : white;
+  stroke-width  : 1;
+}
+.axis--x path{
+  stroke : white;
+  stroke-width  : 1;
+}
+.axis--x .tick text{
+  transform: rotate(90);
+
+}
+.axis--y .tick line{
+  stroke : white;
+  stroke-width  : 1;
+}
+.axis--y path{
+  stroke : white;
+  stroke-width  : 1;
+}
+
+/*Icons */
+
+.winner {
+    padding: 32px;
+    display: inline-block;
+    background-image:  url("https://i.imgur.com/IEayV2a.png");
+}
+.second {
+    padding: 32px;
+    display: inline-block;
+    background-image:  url("https://i.imgur.com/jOIBoeu.png");
+}
+.third {
+    padding: 32px;
+    display: inline-block;
+    background-image:  url("https://i.imgur.com/bEXVEfR.png");
+}
+/*Configuration InfoWindow in map */
+.infoNeigh{
+
+}
+/*InfoWindow no habitable shape*/
+.infoIna{
+
 }
